@@ -9,7 +9,7 @@ var urlMailTemplate = 'https://docs.google.com/spreadsheets/d/16OB_AoHdyvDi62JXK
 
 // Global Variables
 var maxNumProducts = 3;
-var maxNumTemplates = 1;
+var maxNumTemplates = 2;
 var maxNumLog = 100;
 
 //Utility Functions
@@ -72,7 +72,6 @@ function getTemplates(listTemplates)
 
 function followUpSingle(data) 
 {
-  
   var order_id = data['order_id'];
   var buyer_name = data['buyer_name'];
   var buyer_email = data['buyer_email'];
@@ -83,8 +82,7 @@ function followUpSingle(data)
   // Error Handling
   if(!order_id || !buyer_name || !buyer_email || !product_sku || !email_template_id)
     return 'Insufficient Data';
-    
-    
+      
   // Load Order Log Sheet
   var ss = SpreadsheetApp.openByUrl(urlOrderLog);
   var sheet_0 = ss.getSheets()[0];
@@ -94,15 +92,15 @@ function followUpSingle(data)
   var template = getTemplates([email_template_id])[0];
   
   // Create Email
-  var subject = template.templateSubject.replace("$$order_id$$",order_id);
+  var subject = template.templateSubject.replace(/xxorder_idxx/g,order_id);
   var content = template.templateBody ;
   
-  content = content.replace("$$product_asin$$",prodInfo.productASIN);
-  content = content.replace("$$product_brand$$",prodInfo.productBrand);
-  content = content.replace("$$product_name$$",prodInfo.productName);
-  content = content.replace("$$product_image$$",prodInfo.productImage);
-  content = content.replace("$$buyer_name$$",buyer_name);
-  content = content.replace("$$order_id$$",order_id);
+  content = content.replace(/xxproduct_asinxx/g,prodInfo.productASIN);
+  content = content.replace(/xxproduct_brandxx/g,prodInfo.productBrand);
+  content = content.replace(/xxproduct_namexx/g,prodInfo.productName);
+  content = content.replace(/xxproduct_imagexx/g,prodInfo.productImage);
+  content = content.replace(/xxbuyer_namexx/g,buyer_name);
+  content = content.replace(/xxorder_idxx/g,order_id);
   
   // Add to the log if dose not exist
   var dataAll = sheet_0.getRange("A2:F"+parseInt(maxNumLog+1)).getDisplayValues();
