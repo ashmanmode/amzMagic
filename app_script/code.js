@@ -70,14 +70,21 @@ function getTemplates(listTemplates)
   return res;
 }
 
-function followUpSingle(order_id,
-                        buyer_name,
-                        buyer_email,
-                        product_sku,
-                        tracking_number,
-                        email_template_id) 
+function followUpSingle(data) 
 {
   
+  var order_id = data['order_id'];
+  var buyer_name = data['buyer_name'];
+  var buyer_email = data['buyer_email'];
+  var product_sku = data['product_sku'];
+  var tracking_number = data['tracking_number'];
+  var email_template_id = data['email_template_id'];
+  
+  // Error Handling
+  if(!order_id || !buyer_name || !buyer_email || !product_sku || !email_template_id)
+    return 'Insufficient Data';
+    
+    
   // Load Order Log Sheet
   var ss = SpreadsheetApp.openByUrl(urlOrderLog);
   var sheet_0 = ss.getSheets()[0];
@@ -112,5 +119,13 @@ function followUpSingle(order_id,
   }
   
   return 'Mail sent for order ID' + order_id;
+}
+
+function doGet(e)
+{
+  var data = JSON.parse(e['parameter']['data']);
+  
+  var responce = followUpSingle(data);
+  return HtmlService.createHtmlOutput(responce);
 }
 
