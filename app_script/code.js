@@ -112,15 +112,16 @@ function followUpSingle(data)
   if(index == -1)
   {
     // Send mail
-    GmailApp.sendEmail(buyer_email, subject, content);
+    GmailApp.sendEmail(buyer_email, subject, 'Sample', {htmlBody: content});
     
     var row = [order_id,buyer_name,buyer_email,tracking_number,product_sku,MAIL_SENT];
     sheet_0.appendRow(row);
   }
   
-  return 'Mail sent for order ID' + order_id;
+  return 'Mail sent for order ID : ' + order_id + ' content\n' + content;
 }
 
+// Function for single update
 function doGet(e)
 {
   var data = JSON.parse(e['parameter']['data']);
