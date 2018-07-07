@@ -1,14 +1,3 @@
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
 function singleFollowUp()
 {
 	var order_id = document.getElementById("order_id").value;
@@ -43,3 +32,4 @@ function singleFollowUp()
 
 var instance = M.Tabs.init(document.getElementById("tabs_ashish"));
 
+$.support.cors = true;
