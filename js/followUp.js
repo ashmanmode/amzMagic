@@ -25,7 +25,7 @@ function singleFollowUp()
 	console.log(send_url); 
 
 	$.get(send_url, function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
+        console.log("Data: " + data + "\nStatus: " + status);
     });
 	
 }
