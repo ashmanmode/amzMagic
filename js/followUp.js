@@ -26,10 +26,15 @@ function singleFollowUp()
 
 	$.get(send_url, function(data, status){
         console.log("Data: " + data + "\nStatus: " + status);
+        if (status) {
+        	document.getElementById("response").innerHTML = 'MAIL SENT'
+        }
+        else
+        {
+        	document.getElementById("response").innerHTML = 'FAILED! Please try again.'
+        }
     });
 	
 }
 
 var instance = M.Tabs.init(document.getElementById("tabs_ashish"));
-
-$.support.cors = true;
