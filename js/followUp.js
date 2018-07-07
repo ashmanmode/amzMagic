@@ -22,19 +22,24 @@ function singleFollowUp()
 
 	var send_url = url+'data=' + json;
 	
-	console.log(send_url); 
+	//console.log(send_url); 
 
 	$.get(send_url, function(data, status){
         console.log("Data: " + data + "\nStatus: " + status);
+        var toastHTML = "";
         if (status) {
-        	document.getElementById("response").innerHTML = 'MAIL SENT'
+        	console.log('MAIL SENT');
+        	toastHTML = '<span>MAIL SENT SUCCESS</span><button class="btn-flat toast-action">OK</button>';
         }
         else
         {
-        	document.getElementById("response").innerHTML = 'FAILED! Please try again.'
+        	console.log('FAILED! Please try again.');
+        	toastHTML = '<span>FAIL: Try Again</span><button class="btn-flat toast-action">OK</button>';
         }
+        M.toast({html: toastHTML});
     });
 	
 }
 
 var instance = M.Tabs.init(document.getElementById("tabs_ashish"));
+ 
