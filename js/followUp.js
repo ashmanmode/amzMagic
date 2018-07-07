@@ -18,7 +18,7 @@ function singleFollowUp()
 	json += '"email_template_id":"'+email_template_id+'"';
 	json += '} ';
 
-	var url = 'http://cors.io/?https://script.google.com/macros/s/AKfycbyKkqSxd9OTBvG6xP_1PCrTeAnVFj7XN9CoJruABe1D5UFjZLEn/exec?'
+	var url = 'https://cors.io/?https://script.google.com/macros/s/AKfycbyKkqSxd9OTBvG6xP_1PCrTeAnVFj7XN9CoJruABe1D5UFjZLEn/exec?'
 
 	var send_url = url+'data=' + json;
 	
