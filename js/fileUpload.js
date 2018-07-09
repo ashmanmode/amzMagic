@@ -86,6 +86,3 @@ function fileUpload()
 }
 
 console.log('Starting amzMagic');
-$(document).ready(function() {
-    $('select').material_select();
-});
