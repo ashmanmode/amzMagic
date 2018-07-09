@@ -19,6 +19,18 @@ function filterRecords(column_num) {
   }
 }
 
+function create_template_selector(id_name)
+{
+  var html = '<div class="input-field col s12"><select id='+id_name+'><option value="" disabled selected>Choose your option</option>';
+  
+  for (var i = 0; i < listTemplates.length; i++) 
+  {
+    html += '<option value="'+i.toString()+'">'+listTemplates[i]+'</option>';
+  }
+  html += '</select></div>';
+  return html;
+}
+
 function change_state_field()
 {
   console.log("fvgdsGS Check box");
@@ -72,14 +84,14 @@ function fileUpload()
                     // Add template id and checkbox
                     var cell_template = row.insertCell(-1);
                     var cell_check = row.insertCell(-1);
-                    cell_template.innerHTML = '<div class="input-field col s12"><select><option value="" disabled selected>Choose your option</option><option value="1">crochet_01</option><option value="2">crochet_02</option></select></div>';
+                    cell_template.innerHTML = create_template_selector('general_selector');
                     cell_check.innerHTML = '<input type="checkbox" id="myCheckbox"/><label  for="myCheckbox"></label>';
-                    
                 }
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
                 dvCSV.innerHTML += '<input type="text" id="myInput" onkeyup="filterRecords(1)" placeholder="Search for product names..">';
-                dvCSV.innerHTML += '<input type="checkbox" id="all_check_box" onclick="change_state_field()"/><label  for="all_check_box"></label>';
+                dvCSV.innerHTML += create_template_selector('all_selector');
+                dvCSV.innerHTML += '<input type="checkbox" id="all_check_box" onclick="change_state_field(all_check_box)"/><label  for="all_check_box"></label>';
                 dvCSV.appendChild(table);
 
             }
