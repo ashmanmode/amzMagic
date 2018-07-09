@@ -90,8 +90,6 @@ function fileUpload()
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
                 dvCSV.innerHTML += '<input type="text" id="myInput" onkeyup="filterRecords(1)" placeholder="Search for product names..">';
-                dvCSV.innerHTML += create_template_selector('all_selector');
-                dvCSV.innerHTML += '<input type="checkbox" id="all_check_box" onclick="change_state_field(all_check_box)"/><label  for="all_check_box"></label>';
                 dvCSV.appendChild(table);
 
             }
