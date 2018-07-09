@@ -35,7 +35,7 @@ function fileUpload()
 
                 var header = rows[0].split("\t");
                 var required_cols = [] ;
-                var row = table.tHead.insertRow(-1);
+                var row = table.insertRow(-1);
                 for (var j = 0; j < header.length; j++) 
                 {
                     if(required_fields.includes(header[j]))
@@ -55,7 +55,7 @@ function fileUpload()
 
                 for (var i = 1; i < rows.length; i++) 
                 {
-                    var row = table.tBody.insertRow(-1);
+                    var row = table.insertRow(-1);
                     var cells = rows[i].split("\t");
                     for (var j in required_cols)
                     {
