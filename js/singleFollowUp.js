@@ -19,6 +19,7 @@ function singleFollowUp()
 	json += '} ';
 
 	var url = 'https://cors.io/?https://script.google.com/macros/s/AKfycbyKkqSxd9OTBvG6xP_1PCrTeAnVFj7XN9CoJruABe1D5UFjZLEn/exec?'
+	url += 'request_type=single&'
 
 	var send_url = url+'data=' + json;
 	
