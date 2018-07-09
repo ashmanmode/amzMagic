@@ -31,9 +31,21 @@ function create_template_selector(id_name)
   return html;
 }
 
-function change_state_field()
+function follow_up_bulk()
 {
-  console.log("fvgdsGS Check box");
+  console.log("Doing bulk follow up");
+  // Declare variables 
+  var table, tr, td, i;
+  table = document.getElementById("data_check_table");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 1; i < tr.length; i++) {
+   if(tr[i].style.display = "")
+     console.log(i,'blank');
+    else 
+       console.log(i,'none') ;
+  }
 }
 
 function fileUpload() 
@@ -66,8 +78,8 @@ function fileUpload()
               
                 var cell_template = row.insertCell(-1);
                 var cell_check = row.insertCell(-1);
-                cell_template.innerHTML = 'Template ID';
-                cell_check.innerHTML = 'Send?';
+                cell_template.innerHTML = 'template_id';
+                cell_check.innerHTML = 'send?';
 
                 console.log(required_cols);
 
@@ -91,6 +103,7 @@ function fileUpload()
                 dvCSV.innerHTML = "";
                 dvCSV.innerHTML += '<input type="text" id="myInput" onkeyup="filterRecords(1)" placeholder="Search for product names..">';
                 dvCSV.appendChild(table);
+                dvCSV.innerHTML += '<input type="button" id="submit" value="Submit" onclick="follow_up_bulk()" />';
 
             }
             reader.readAsText(fileUpload.files[0]);
