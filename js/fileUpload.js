@@ -1,3 +1,24 @@
+function filterRecords(column_num) {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[column_num];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+
 function fileUpload() 
 {
     var fileUpload = document.getElementById("fileUpload");
@@ -36,6 +57,13 @@ function fileUpload()
                        var cell = row.insertCell(-1);
                        cell.innerHTML = cells[required_cols[j]];
                     }
+                    
+                    // Add template id and checkbox
+                    var cell_template = row.insertCell(-1);
+                    var cell_check = row.insertCell(-1);
+                    cell_template.innerHTML = '<div class="input-field col s12"><select><option value="" disabled selected>Choose your option</option><option value="1">crochet_01</option><option value="2">crochet_02</option></select></div>';
+                    cell_check.innerHTML = '<input type="checkbox" />';
+                    
                 }
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
