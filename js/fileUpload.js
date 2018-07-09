@@ -19,6 +19,11 @@ function filterRecords(column_num) {
   }
 }
 
+function change_state_field()
+{
+  console.log("fvgdsGS Check box");
+}
+
 function fileUpload() 
 {
     var fileUpload = document.getElementById("fileUpload");
@@ -73,6 +78,8 @@ function fileUpload()
                 }
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
+                dvCSV.innerHTML += '<input type="text" id="myInput" onkeyup="filterRecords(1)" placeholder="Search for product names..">';
+                dvCSV.innerHTML += '<input type="checkbox" id="all_check_box" onclick="change_state_field()"/><label  for="all_check_box"></label>';
                 dvCSV.appendChild(table);
 
             }
