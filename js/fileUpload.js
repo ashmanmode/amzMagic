@@ -45,6 +45,11 @@ function fileUpload()
                        required_cols.push(j);
                     }
                 }
+              
+                var cell_template = row.insertCell(-1);
+                var cell_check = row.insertCell(-1);
+                cell_template.innerHTML = 'Template ID';
+                cell_check.innerHTML = 'Send?';
 
                 console.log(required_cols);
 
