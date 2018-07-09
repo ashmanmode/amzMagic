@@ -21,6 +21,5 @@ var all_fields =
 
 var required_fields = 
 [
-	"amazon-order-id", "sku", "buyer-name", 
-	"buyer-email", "tracking-number", 
+	"amazon-order-id", "product-name", "item-price"
 ]
