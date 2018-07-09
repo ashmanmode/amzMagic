@@ -17,9 +17,12 @@ var all_fields =
 	"ship-promotion-discount","carrier","tracking-number",
 	"estimated-arrival-date","fulfillment-center-id",
 	"fulfillment-channel","sales-channel"
-]
+];
 
 var required_fields = 
 [
 	"amazon-order-id", "product-name", "item-price"
-]
+];
+
+var listTemplates = 
+[ "crochet_01","crochet_02"] ;
