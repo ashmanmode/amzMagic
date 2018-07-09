@@ -67,7 +67,7 @@ function fileUpload()
                     var cell_template = row.insertCell(-1);
                     var cell_check = row.insertCell(-1);
                     cell_template.innerHTML = '<div class="input-field col s12"><select><option value="" disabled selected>Choose your option</option><option value="1">crochet_01</option><option value="2">crochet_02</option></select></div>';
-                    cell_check.innerHTML = '<input type="checkbox" />';
+                    cell_check.innerHTML = '<input type="checkbox" id="myCheckbox"/><label  for="myCheckbox"></label>';
                     
                 }
                 var dvCSV = document.getElementById("dvCSV");
