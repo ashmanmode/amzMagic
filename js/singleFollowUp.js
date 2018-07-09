@@ -23,7 +23,7 @@ function singleFollowUp()
 
 	var send_url = url+'data=' + json;
 	
-	//console.log(send_url); 
+	console.log(send_url); 
 
 	$.get(send_url, function(data, status){
         console.log("Data: " + data + "\nStatus: " + status);
