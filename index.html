@@ -60,19 +60,15 @@
          </div>
       </div>
       <div id="test2" class="col s12">
-         <form action="#">
-            <div class="file-field input-field">
-               <div class="btn">
-                  <span>File</span>
-                  <input type="file">
-               </div>
-               <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-               </div>
-            </div>
-         </form>
+         <input type="file" id="fileUpload" />
+         <input type="button" id="upload" value="Upload" onclick="fileUpload()" />
+         <hr />
+         <div id="dvCSV">
+         </div>
       </div>
    </div>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script type="text/javascript" src="js/followUp.js"></script>
+   <script type="text/javascript" src="js/config.js"></script>
+   <script type="text/javascript" src="js/fileUpload.js"></script>
 </body>
