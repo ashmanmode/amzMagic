@@ -19,10 +19,17 @@ var all_fields =
 	"fulfillment-channel","sales-channel"
 ];
 
+
 var required_fields = 
 [
-	"amazon-order-id", "product-name", "item-price"
+	"amazon-order-id", "buyer-name", "buyer-email", "sku",
+	"tracking-number"
 ];
+
+var display_fields = 
+[
+	"amazon-order-id", "product-name", "item-price"
+]
 
 var listTemplates = 
 [ "crochet_01","crochet_02"] ;

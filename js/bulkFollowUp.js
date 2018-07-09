@@ -35,17 +35,67 @@ function follow_up_bulk()
 {
   console.log("Doing bulk follow up");
   // Declare variables 
-  var table, tr, td, i;
+  var table, tr, e, template_id, is_send, i, json;
   table = document.getElementById("data_check_table");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
-  for (i = 1; i < tr.length; i++) {
-   if(tr[i].style.display = "")
-     console.log(i,'blank');
-    else 
-       console.log(i,'none') ;
+  var upload_json = '[';
+  for (i = 1; i < tr.length; i++) 
+  {
+    e = tr[i].getElementsByTagName("td")[display_fields.length].children[0].children[0];
+    template_id = e.options[e.selectedIndex].text;
+    is_send = tr[i].getElementsByTagName("td")[display_fields.length+1].children[0].checked;
+
+    if(is_send)
+    {
+      if(template_id == "Choose your option")
+      {
+         document.getElementById("message").innerHTML = '&nbsp;&nbsp;You must select mail template for follow up.';
+         return;
+      }
+
+      json = ''
+      json += '{';
+      json += '"order_id":"'+table_data[i][0]+'",';
+      json += '"buyer_email":"'+table_data[i][1]+'",';
+      json += '"buyer_name":"'+table_data[i][2]+'",';
+      json += '"product_sku":"'+table_data[i][3]+'",';
+      json += '"tracking_number":"'+table_data[i][4]+'",';
+      json += '"email_template_id":"'+template_id+'"';
+      json += '} ';
+      upload_json += json + ',';
+    }
   }
+
+  upload_json = upload_json.slice(0,-1) + ']';
+  if(upload_json == ']')
+  {
+    document.getElementById("message").innerHTML = '&nbsp;&nbsp;Select record to send mails.';
+    return;
+  }
+
+  var send_url = 'https://cors.io/?https://script.google.com/macros/s/AKfycbyKkqSxd9OTBvG6xP_1PCrTeAnVFj7XN9CoJruABe1D5UFjZLEn/exec?'
+  send_url += 'request_type=bulk&data=' + upload_json;
+
+  console.log(send_url);
+  document.getElementById("message").innerHTML = '&nbsp;&nbsp;Processing';
+  document.getElementById("message").style.color = 'black';
+
+  // Send http request
+  $.get(send_url, function(data, status){
+        console.log("Data: " + data + "\nStatus: " + status);
+        if (status) {
+          console.log('MAIL SENT');
+          document.getElementById("message").innerHTML = '&nbsp;&nbsp;Success';
+          document.getElementById("message").style.color = 'green';
+        }
+        else
+        {
+          console.log('FAILED! Please try again.');
+          document.getElementById("message").innerHTML = '&nbsp;&nbsp;FAILED';
+        }
+    });
 }
 
 function fileUpload() 
@@ -65,15 +115,18 @@ function fileUpload()
 
                 var header = rows[0].split("\t");
                 var required_cols = [] ;
+                var display_cols = [];
                 var row = table.insertRow(-1);
                 for (var j = 0; j < header.length; j++) 
                 {
-                    if(required_fields.includes(header[j]))
+                    if(display_fields.includes(header[j]))
                     {
                        var cell = row.insertCell(-1);
                        cell.innerHTML = header[j];
-                       required_cols.push(j);
+                       display_cols.push(j);
                     }
+                    if(required_fields.includes(header[j]))
+                      required_cols.push(j);
                 }
               
                 var cell_template = row.insertCell(-1);
@@ -81,29 +134,35 @@ function fileUpload()
                 cell_template.innerHTML = 'template_id';
                 cell_check.innerHTML = 'send?';
 
+                console.log(display_cols);
                 console.log(required_cols);
 
                 for (var i = 1; i < rows.length; i++) 
                 {
                     var row = table.insertRow(-1);
                     var cells = rows[i].split("\t");
-                    for (var j in required_cols)
+                    for (var j in display_cols)
                     {
                        var cell = row.insertCell(-1);
-                       cell.innerHTML = cells[required_cols[j]];
+                       cell.innerHTML = cells[display_cols[j]];
                     }
+                    var data = [];
+                    for(var j in required_cols)
+                      data.push(cells[required_cols[j]]);
+                    table_data.push(data)
                     
                     // Add template id and checkbox
                     var cell_template = row.insertCell(-1);
                     var cell_check = row.insertCell(-1);
                     cell_template.innerHTML = create_template_selector('general_selector');
-                    cell_check.innerHTML = '<input type="checkbox" id="myCheckbox"/><label  for="myCheckbox"></label>';
+                    cell_check.innerHTML = '<input type="checkbox"/>';
                 }
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
                 dvCSV.innerHTML += '<input type="text" id="myInput" onkeyup="filterRecords(1)" placeholder="Search for product names..">';
                 dvCSV.appendChild(table);
                 dvCSV.innerHTML += '<input type="button" id="submit" value="Submit" onclick="follow_up_bulk()" />';
+                dvCSV.innerHTML += '<label id="message" style="color:red"></label>';
 
             }
             reader.readAsText(fileUpload.files[0]);
@@ -117,3 +176,4 @@ function fileUpload()
 }
 
 console.log('Starting amzMagic');
+var table_data = [];
