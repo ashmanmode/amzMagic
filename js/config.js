@@ -33,4 +33,4 @@ var display_fields =
 ]
 
 var listTemplates = 
-[ "crochet_01","crochet_02"] ;
+[ "crochet_01","crochet_02", "seller_review"] ;
