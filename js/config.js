@@ -26,6 +26,7 @@ var required_fields =
 	"tracking-number"
 ];
 
+// Keep Estimated arrival date at last of the array
 var display_fields = 
 [
 	"amazon-order-id", "product-name", "item-price", "estimated-arrival-date"

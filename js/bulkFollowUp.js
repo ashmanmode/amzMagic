@@ -145,6 +145,15 @@ function fileUpload()
                     {
                        var cell = row.insertCell(-1);
                        cell.innerHTML = cells[display_cols[j]];
+                       if(j==display_cols.length-1)
+                       {
+                         var d = new Date(cells[display_cols[j]].split("T")[0]);
+                         var today = new Date()
+                         if(d <= today)
+                          cell.innerHTML = d.toDateString();
+                        else
+                          cell.innerHTML = "Time hai aur!";
+                       }
                     }
                     var data = [];
                     for(var j in required_cols)
