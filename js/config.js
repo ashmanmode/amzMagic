@@ -28,7 +28,7 @@ var required_fields =
 
 var display_fields = 
 [
-	"amazon-order-id", "product-name", "item-price"
+	"amazon-order-id", "product-name", "item-price", "estimated-arrival-date"
 ]
 
 var listTemplates = 
