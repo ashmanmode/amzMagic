@@ -57,11 +57,11 @@ function follow_up_bulk()
 
       json = ''
       json += '{';
-      json += '"order_id":"'+table_data[i][0]+'",';
-      json += '"buyer_email":"'+table_data[i][1]+'",';
-      json += '"buyer_name":"'+table_data[i][2]+'",';
-      json += '"product_sku":"'+table_data[i][3]+'",';
-      json += '"tracking_number":"'+table_data[i][4]+'",';
+      json += '"order_id":"'+table_data[i-1][0]+'",';
+      json += '"buyer_email":"'+table_data[i-1][1]+'",';
+      json += '"buyer_name":"'+table_data[i-1][2]+'",';
+      json += '"product_sku":"'+table_data[i-1][3]+'",';
+      json += '"tracking_number":"'+table_data[i-1][4]+'",';
       json += '"email_template_id":"'+template_id+'"';
       json += '} ';
       upload_json += json + ',';
