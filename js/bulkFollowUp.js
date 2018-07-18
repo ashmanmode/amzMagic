@@ -85,7 +85,7 @@ function follow_up_bulk()
   document.getElementById("message").innerHTML = '&nbsp;&nbsp;Processing';
   document.getElementById("message").style.color = 'black';
 
-  Send http request // uncomment to send
+  //Send http request // uncomment to send
   $.get(send_url, function(data, status){
         console.log("Data: " + data + "\nStatus: " + status);
         if (status) {
