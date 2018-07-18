@@ -43,7 +43,8 @@ function follow_up_bulk()
   var upload_json = '[';
   for (i = 1; i < tr.length; i++) 
   {
-    if(tr[i].getElementsByTagName("td")[display_fields.length].innerHTML == 'Already Sent')
+    if(tr[i].getElementsByTagName("td")[display_fields.length].innerHTML == CONST_already_sent || 
+      tr[i].getElementsByTagName("td")[display_fields.length].innerHTML == CONST_send_later)
       continue;
     e = tr[i].getElementsByTagName("td")[display_fields.length].children[0].children[0];
     template_id = e.options[e.selectedIndex].text;
@@ -84,20 +85,20 @@ function follow_up_bulk()
   document.getElementById("message").innerHTML = '&nbsp;&nbsp;Processing';
   document.getElementById("message").style.color = 'black';
 
-  // Send http request // uncomment to send
-  // $.get(send_url, function(data, status){
-  //       console.log("Data: " + data + "\nStatus: " + status);
-  //       if (status) {
-  //         console.log('MAIL SENT');
-  //         document.getElementById("message").innerHTML = '&nbsp;&nbsp;Success';
-  //         document.getElementById("message").style.color = 'green';
-  //       }
-  //       else
-  //       {
-  //         console.log('FAILED! Please try again.');
-  //         document.getElementById("message").innerHTML = '&nbsp;&nbsp;FAILED';
-  //       }
-  //   });
+  Send http request // uncomment to send
+  $.get(send_url, function(data, status){
+        console.log("Data: " + data + "\nStatus: " + status);
+        if (status) {
+          console.log('MAIL SENT');
+          document.getElementById("message").innerHTML = '&nbsp;&nbsp;Success';
+          document.getElementById("message").style.color = 'green';
+        }
+        else
+        {
+          console.log('FAILED! Please try again.');
+          document.getElementById("message").innerHTML = '&nbsp;&nbsp;FAILED';
+        }
+    });
 }
 
 function fileUpload() 
@@ -194,13 +195,13 @@ function fileUpload()
                     if(already_sent)
                     {
                       cell_check.innerHTML = "";
-                      cell_template.innerHTML = 'Already Sent';
+                      cell_template.innerHTML = CONST_already_sent;
                     }
 
                     if(time_hai_aur)
                     {
                       cell_check.innerHTML = "";
-                      cell_template.innerHTML = 'Send Later';
+                      cell_template.innerHTML = CONST_send_later;
                     }
                 }
                 var dvCSV = document.getElementById("dvCSV");
