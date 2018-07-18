@@ -240,6 +240,8 @@ function load_prev_order_list()
         else
         {
           console.log('Download FAILED! Please try again.');
+          var form = '<input type="file" id="fileUpload" /><input type="button" id="upload" value="Upload" onclick="fileUpload()" /><hr /><div id="dvCSV"></div>';
+            document.getElementById("container").innerHTML = form;
         }
     });
 }
