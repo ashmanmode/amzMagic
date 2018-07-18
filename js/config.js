@@ -36,6 +36,6 @@ var listTemplates =
 [ "crochet_01","crochet_promotional", "seller_review"] ;
 
 
-// Naming Conventions
+// Naming Conventions ..
 var CONST_already_sent = 'Already Sent';
 var CONST_send_later = 'Send Later';
