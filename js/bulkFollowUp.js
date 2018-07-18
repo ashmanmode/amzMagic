@@ -43,13 +43,15 @@ function follow_up_bulk()
   var upload_json = '[';
   for (i = 1; i < tr.length; i++) 
   {
+    if(tr[i].getElementsByTagName("td")[display_fields.length].innerHTML == 'Already Sent')
+      continue;
     e = tr[i].getElementsByTagName("td")[display_fields.length].children[0].children[0];
     template_id = e.options[e.selectedIndex].text;
     is_send = tr[i].getElementsByTagName("td")[display_fields.length+1].children[0].checked;
 
     if(is_send)
     {
-      if(template_id == "Choose your option")
+      if(!listTemplates.includes(template_id))
       {
          document.getElementById("message").innerHTML = '&nbsp;&nbsp;You must select mail template for follow up.';
          return;
@@ -82,20 +84,20 @@ function follow_up_bulk()
   document.getElementById("message").innerHTML = '&nbsp;&nbsp;Processing';
   document.getElementById("message").style.color = 'black';
 
-  // Send http request
-  $.get(send_url, function(data, status){
-        console.log("Data: " + data + "\nStatus: " + status);
-        if (status) {
-          console.log('MAIL SENT');
-          document.getElementById("message").innerHTML = '&nbsp;&nbsp;Success';
-          document.getElementById("message").style.color = 'green';
-        }
-        else
-        {
-          console.log('FAILED! Please try again.');
-          document.getElementById("message").innerHTML = '&nbsp;&nbsp;FAILED';
-        }
-    });
+  // Send http request // uncomment to send
+  // $.get(send_url, function(data, status){
+  //       console.log("Data: " + data + "\nStatus: " + status);
+  //       if (status) {
+  //         console.log('MAIL SENT');
+  //         document.getElementById("message").innerHTML = '&nbsp;&nbsp;Success';
+  //         document.getElementById("message").style.color = 'green';
+  //       }
+  //       else
+  //       {
+  //         console.log('FAILED! Please try again.');
+  //         document.getElementById("message").innerHTML = '&nbsp;&nbsp;FAILED';
+  //       }
+  //   });
 }
 
 function fileUpload() 
@@ -141,20 +143,43 @@ function fileUpload()
                 {
                     var row = table.insertRow(-1);
                     var cells = rows[i].split("\t");
+                    var already_sent = false;
+                    var time_hai_aur = false;
+
+                    // If this order ID already taken then say sent mail
+                    if(prev_orders.includes(cells[display_cols[0]]))
+                    {
+                       console.log('already sent '+cells[display_cols[0]]);
+                       row.style.color = '#ABEBC6';
+                       already_sent = true;
+                    }
+
+
                     for (var j in display_cols)
                     {
                        var cell = row.insertCell(-1);
                        cell.innerHTML = cells[display_cols[j]];
+
                        if(j==display_cols.length-1)
                        {
                          var d = new Date(cells[display_cols[j]].split("T")[0]);
                          var today = new Date()
                          if(d <= today)
+                         {
                           cell.innerHTML = d.toDateString();
-                        else
+                          if(!already_sent)
+                            row.style.color = 'black';
+                         }
+                         else
+                         {
                           cell.innerHTML = "Time hai aur!";
+                          row.style.color = '#F1948A';
+                          time_hai_aur = true;
+                         }
                        }
                     }
+
+                    // Only to send data to server
                     var data = [];
                     for(var j in required_cols)
                       data.push(cells[required_cols[j]]);
@@ -165,6 +190,18 @@ function fileUpload()
                     var cell_check = row.insertCell(-1);
                     cell_template.innerHTML = create_template_selector('general_selector');
                     cell_check.innerHTML = '<input type="checkbox"/>';
+
+                    if(already_sent)
+                    {
+                      cell_check.innerHTML = "";
+                      cell_template.innerHTML = 'Already Sent';
+                    }
+
+                    if(time_hai_aur)
+                    {
+                      cell_check.innerHTML = "";
+                      cell_template.innerHTML = 'Send Later';
+                    }
                 }
                 var dvCSV = document.getElementById("dvCSV");
                 dvCSV.innerHTML = "";
@@ -184,5 +221,32 @@ function fileUpload()
     }
 }
 
-console.log('Starting amzMagic');
+function load_prev_order_list()
+{
+  var send_url = 'https://cors.io/?https://script.google.com/macros/s/AKfycbyKkqSxd9OTBvG6xP_1PCrTeAnVFj7XN9CoJruABe1D5UFjZLEn/exec?request_type=prev_sent_list';
+  $.get(send_url, function(data, status){
+        if (status) 
+        {
+          //console.log("Data: " + data + "\nStatus: " + status);
+          json_obj = JSON.parse(data);
+          if(json_obj.status=="success")
+          {
+            console.log('Loaded prev orders '+json_obj.responce);
+            var form = '<input type="file" id="fileUpload" /><input type="button" id="upload" value="Upload" onclick="fileUpload()" /><hr /><div id="dvCSV"></div>';
+            document.getElementById("container").innerHTML = form;
+            prev_orders =  json_obj.responce.split(',')
+          }
+        }
+        else
+        {
+          console.log('Download FAILED! Please try again.');
+        }
+    });
+}
+
+
+var prev_orders = [];
 var table_data = [];
+
+console.log('Starting amzMagic');
+load_prev_order_list();
