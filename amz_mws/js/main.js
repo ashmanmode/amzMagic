@@ -1,8 +1,8 @@
 
 'use strict';
 
-var AWS_ACCESS_KEY_ID = 'AKIAJWY7K7I7WDQRR5RA';
-var AWS_SECRET_ACCESS_KEY = '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';
+var AWS_ACCESS_KEY_ID = '';
+var AWS_SECRET_ACCESS_KEY = '';
 var amazon_mws_path = '../amz_mws/lib/amazon-mws';
 
 // require(['../amz_mws/lib/amazon-mws'], function (foo) {
