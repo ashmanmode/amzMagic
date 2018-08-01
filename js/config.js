@@ -5,7 +5,7 @@ var all_fields =
 	"shipment-item-id","amazon-order-item-id","merchant-order-item-id",
 	"purchase-date","payments-date","shipment-date",
 	"reporting-date","buyer-email","buyer-name",
-	"buyer-phone-number","sku","product-name",
+	"buyer-phone-number","merchant-sku","title",
 	"quantity-shipped","currency","item-price",
 	"item-tax","shipping-price","shipping-tax",
 	"gift-wrap-price","gift-wrap-tax","ship-service-level",
@@ -22,14 +22,14 @@ var all_fields =
 
 var required_fields = 
 [
-	"amazon-order-id", "buyer-name", "buyer-email", "sku",
+	"amazon-order-id", "buyer-name", "buyer-email", "merchant-sku",
 	"tracking-number"
 ];
 
 // Keep Estimated arrival date at last of the array
 var display_fields = 
 [
-	"amazon-order-id", "product-name", "item-price", "estimated-arrival-date"
+	"amazon-order-id", "title", "item-price", "estimated-arrival-date"
 ]
 
 var listTemplates = 

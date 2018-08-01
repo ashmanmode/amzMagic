@@ -123,16 +123,18 @@ function fileUpload()
                 var row = table.insertRow(-1);
                 for (var j = 0; j < header.length; j++) 
                 {
-                    if(display_fields.includes(header[j]))
+                    //console.log(header[j].toLowerCase().replace(/ /g,'-'));
+                    if(display_fields.includes(header[j].toLowerCase().replace(/ /g,'-')))
                     {
                        var cell = row.insertCell(-1);
                        cell.innerHTML = header[j];
                        display_cols.push(j);
                     }
-                    if(required_fields.includes(header[j]))
+                    if(required_fields.includes(header[j].toLowerCase().replace(/ /g,'-')))
                       required_cols.push(j);
                 }
-              
+                
+                console.log(header);
                 var cell_template = row.insertCell(-1);
                 var cell_check = row.insertCell(-1);
                 cell_template.innerHTML = 'template_id';
