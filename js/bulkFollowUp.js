@@ -21,7 +21,7 @@ function filterRecords(column_num) {
 
 function create_template_selector(id_name)
 {
-  var html = '<div class="input-field col s12"><select id='+id_name+'><option value="" disabled selected>Choose your option</option>';
+  var html = '<div class="input-field col s12"><select id='+id_name+'><option value="" disabled>Choose your option</option>';
   
   for (var i = 0; i < listTemplates.length; i++) 
   {
